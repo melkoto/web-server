@@ -1,6 +1,9 @@
 package api
 
-import "github.com/sirupsen/logrus"
+import (
+	"github.com/sirupsen/logrus"
+	"net/http"
+)
 
 // configureLoggerField used to configure API instance
 func (api *API) configureLoggerField() error {
@@ -11,4 +14,10 @@ func (api *API) configureLoggerField() error {
 
 	api.logger.SetLevel(logLevel)
 	return nil
+}
+
+func (api *API) configureRouterField() {
+	api.router.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Write([]byte("Hello! This is rest api"))
+	})
 }
