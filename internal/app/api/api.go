@@ -18,5 +18,9 @@ func New(config *Config) *API {
 
 // Start is http server/configure loggers, router, db connection ...
 func (api *API) Start() error {
+	if err := api.configureLoggerField(); err != nil {
+		return err
+	}
+	api.logger.Info("starting api server at port:", api.config.BindAddr)
 	return nil
 }
